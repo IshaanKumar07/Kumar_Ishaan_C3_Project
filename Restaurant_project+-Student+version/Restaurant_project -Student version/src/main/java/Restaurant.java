@@ -1,9 +1,8 @@
-import java.time.LocalDateTime;
+package com.RestaurantFinder;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalTime;
-import java.util.ArrayList;
 
 public class Restaurant {
     private String name;
@@ -18,13 +17,24 @@ public class Restaurant {
         this.openingTime = openingTime;
         this.closingTime = closingTime;
         //default menu items
-        this.menu.add(new Item("Chicken Noodles",120));
-        this.menu.add(new Item("Veg Manchurian",100));
+        this.menu.add(new Item("Lemon Rice",73));
+        this.menu.add(new Item("Sambar Rice",45));
     }
-	
-	public LocalTime getCurrentTime(){ return  LocalTime.now(); }
-	
-	public boolean isRestaurantOpen() {
+    public LocalTime getCurrentTime(){ return  LocalTime.now(); }
+
+    public LocalTime getOpeningTime() { return openingTime; }
+
+    public void setOpeningTime(LocalTime openingTime) {
+        this.openingTime = openingTime;
+    }
+
+    public LocalTime getClosingTime() { return closingTime; }
+
+    public void setClosingTime(LocalTime closingTime) {
+        this.closingTime = closingTime;
+    }
+
+    public boolean isRestaurantOpen(){
         LocalTime time = LocalTime.now();
         int isStillOpen = time.compareTo(closingTime);
         int isOpen = time.compareTo(openingTime);
@@ -33,7 +43,7 @@ public class Restaurant {
         }
         return false;
     }
-	
+
 
     public List<Item> getMenu() {
         return this.menu;
@@ -51,7 +61,7 @@ public class Restaurant {
         Item newItem = new Item(name,price);
         menu.add(newItem);
     }
-    
+
     public void removeFromMenu(String itemName) throws itemNotFoundException {
 
         Item itemToBeRemoved = findItemByName(itemName);
@@ -73,4 +83,11 @@ public class Restaurant {
         return name;
     }
 
+    public int getOrderValue(List<Item> item){
+        int totalValue = 0;
+        for (Item myItem : item) {
+            totalValue += myItem.getPrice();
+        }
+        return totalValue;
+    }
 }
